@@ -6,11 +6,20 @@
   var c = this;
 	
 	c.selectItem = function(idx) {
+		c.notePos = idx;
     var id = c.data.notes[idx].sys_id;
     
     $rootScope.noteID = id;
     $rootScope.$emit('selectNote', id);
   }
+	// Subscribe to event.  Set the new title and note values on the 
+	// c.data object
+	$rootScope.$on('updateTitle', function(event,data) { 
+		//console.log("updateTitle event received: " + event);
+		//console.log(data);
+		c.data.notes[c.notePos].title = data.title;
+		c.data.notes[c.notePos].note = data.note;
+	});
 };]]></client_script>
         <controller_as>c</controller_as>
         <css/>
@@ -48,14 +57,14 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2022-09-21 10:26:33</sys_created_on>
         <sys_id>798d2c0a2f8e111003c54f2e2c99b6f8</sys_id>
-        <sys_mod_count>11</sys_mod_count>
+        <sys_mod_count>17</sys_mod_count>
         <sys_name>Notes List</sys_name>
         <sys_package display_value="CreateNotes" source="x_snc_createnotes">df5fd9a5090232007f44e1046c8ff69f</sys_package>
         <sys_policy/>
         <sys_scope display_value="CreateNotes">df5fd9a5090232007f44e1046c8ff69f</sys_scope>
         <sys_update_name>sp_widget_798d2c0a2f8e111003c54f2e2c99b6f8</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2022-09-23 09:15:57</sys_updated_on>
+        <sys_updated_on>2022-09-23 12:14:57</sys_updated_on>
         <template><![CDATA[<div class="panel panel-default">
   <div class="panel-heading clearfix">
     <h3 class="panel-title pull-left">
@@ -73,6 +82,6 @@
     </a>
   </div>
 </div>
-<pre>{{c.data | json}}</pre>]]></template>
+]]></template>
     </sp_widget>
 </record_update>
